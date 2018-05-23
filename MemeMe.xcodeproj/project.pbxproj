@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020D9C3020B472D500EB151E /* sharefonts.net.txt in Resources */ = {isa = PBXBuildFile; fileRef = 020D9C2C20B472D500EB151E /* sharefonts.net.txt */; };
+		020D9C3120B472D500EB151E /* Impacted.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 020D9C2D20B472D500EB151E /* Impacted.ttf */; };
+		020D9C3220B472D500EB151E /* unicode.impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 020D9C2E20B472D500EB151E /* unicode.impact.ttf */; };
+		020D9C3320B472D500EB151E /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 020D9C2F20B472D500EB151E /* impact.ttf */; };
 		02AB8B8B20ADE658004872F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB8B8A20ADE658004872F3 /* AppDelegate.swift */; };
 		02AB8B8D20ADE658004872F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02AB8B8C20ADE658004872F3 /* ViewController.swift */; };
 		02AB8B9020ADE658004872F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02AB8B8E20ADE658004872F3 /* Main.storyboard */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		020D9C2C20B472D500EB151E /* sharefonts.net.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharefonts.net.txt; sourceTree = "<group>"; };
+		020D9C2D20B472D500EB151E /* Impacted.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impacted.ttf; sourceTree = "<group>"; };
+		020D9C2E20B472D500EB151E /* unicode.impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = unicode.impact.ttf; sourceTree = "<group>"; };
+		020D9C2F20B472D500EB151E /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
 		02AB8B8720ADE658004872F3 /* MemeMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02AB8B8A20ADE658004872F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02AB8B8C20ADE658004872F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,9 +43,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		020D9C2B20B472C500EB151E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				020D9C2F20B472D500EB151E /* impact.ttf */,
+				020D9C2D20B472D500EB151E /* Impacted.ttf */,
+				020D9C2C20B472D500EB151E /* sharefonts.net.txt */,
+				020D9C2E20B472D500EB151E /* unicode.impact.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		02AB8B7E20ADE658004872F3 = {
 			isa = PBXGroup;
 			children = (
+				020D9C2B20B472C500EB151E /* Resources */,
 				02AB8B8920ADE658004872F3 /* MemeMe */,
 				02AB8B8820ADE658004872F3 /* Products */,
 			);
@@ -122,9 +142,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				020D9C3120B472D500EB151E /* Impacted.ttf in Resources */,
 				02AB8B9520ADE659004872F3 /* LaunchScreen.storyboard in Resources */,
+				020D9C3320B472D500EB151E /* impact.ttf in Resources */,
 				02AB8B9220ADE659004872F3 /* Assets.xcassets in Resources */,
+				020D9C3020B472D500EB151E /* sharefonts.net.txt in Resources */,
 				02AB8B9020ADE658004872F3 /* Main.storyboard in Resources */,
+				020D9C3220B472D500EB151E /* unicode.impact.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +305,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Z33W2Z33C;
 				INFOPLIST_FILE = MemeMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,7 +324,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Z33W2Z33C;
 				INFOPLIST_FILE = MemeMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
