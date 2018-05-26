@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func pickImage(_ sender: UIBarButtonItem) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.allowsEditing = true
+        imagePicker.allowsEditing = false
         switch sender.tag {
         case 0:
             imagePicker.sourceType = .camera
@@ -54,7 +54,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         activity.completionWithItemsHandler = {
             activity, completed, items, error in
+            if completed {
                 self.dismiss(animated: true, completion: nil)
+            }
         }
         
         self.present(activity, animated: true, completion: nil)
@@ -101,7 +103,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: Keyboard Functions
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        
         view.frame.origin.y -= getKeyboardHeight(notification)
     }
     
@@ -124,16 +125,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        switch textField.tag {
-        case 0:
-            topTextField.text = ""
-            unsubscribeFromKeyboardNotifications()
-        case 1:
-             bottomTextField.text = ""
-        default:
-            break
-        }
+        setTextFields(textField, "reset")
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
@@ -146,14 +138,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count == 0 {
-            switch textField.tag {
-            case 0:
-                textField.text = "TOP"
-            case 1:
-                textField.text = "BOTTOM"
-            default:
-                break
-            }
+            setTextFields(textField, "setInitials")
         }
         
         textField.resignFirstResponder()
@@ -162,21 +147,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
-        
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     func subscribeToKeyboardNotifications() {
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
     
     
     func unsubscribeFromKeyboardNotifications() {
-        
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
@@ -205,8 +187,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.topTextField.delegate = self
         self.bottomTextField.delegate = self
         
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
+        setTextFields(topTextField, "setInitials")
+        setTextFields(bottomTextField, "setInitials")
         
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
@@ -250,6 +232,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func showToolbars(){
         topToolbar.isHidden = false
         bottomToolbar.isHidden = false
+    }
+    
+    func setTextFields(_ textField: UITextField, _ action: String){
+        switch action {
+        case "setInitials":
+            switch textField.tag {
+            case 0:
+                textField.text = "TOP"
+            case 1:
+                textField.text = "BOTTOM"
+            default:
+                break
+            }
+        case "reset":
+            switch textField.tag {
+            case 0:
+                textField.text = ""
+            case 1:
+                textField.text = ""
+            default:
+                break
+            }
+       default:
+            break
+        }
     }
     
    
