@@ -55,8 +55,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activity.completionWithItemsHandler = {
             activity, completed, items, error in
             if completed {
-                self.dismiss(animated: true, completion: nil)
+                self.save()
             }
+            self.dismiss(animated: true, completion: nil)
         }
         
         self.present(activity, animated: true, completion: nil)
@@ -125,7 +126,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        setTextFields(textField, "reset")
+        initializeTextField(textField, "")
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
@@ -138,7 +139,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.count == 0 {
-            setTextFields(textField, "setInitials")
+            switch textField.tag {
+            case 0:
+                initializeTextField(textField, "TOP")
+            case 1:
+                initializeTextField(textField, "BOTTOM")
+            default:
+                break
+            }
         }
         
         textField.resignFirstResponder()
@@ -163,12 +171,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
     }
     
-    
+    func save() {
+        //Create meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageViewController.image, memedImage: generateMemedImage())
+    }
 
     func generateMemedImage() -> UIImage {
         
         // TODO: Hide toolbar and navbar
-        hideToolbars()
+        configureBars(true)
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -177,34 +188,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // TODO: Show toolbar and navbar
-        showToolbars()
+        configureBars(false)
         
         return memedImage
     }
     
     func initializeUIComponent(){
         
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
-        
-        setTextFields(topTextField, "setInitials")
-        setTextFields(bottomTextField, "setInitials")
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        
-        topTextField.borderStyle = UITextBorderStyle.none
-        topTextField.backgroundColor = UIColor.clear
-        
-        bottomTextField.borderStyle = UITextBorderStyle.none
-        bottomTextField.backgroundColor = UIColor.clear
-        
-        self.topTextField.autocapitalizationType = .allCharacters
-        self.bottomTextField.autocapitalizationType = .allCharacters
-        
+        initializeTextField(topTextField, "TOP")
+        initializeTextField(bottomTextField, "BOTTOM")
         
         if(!UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
             cameraButton.isEnabled = false
@@ -224,43 +216,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.isEnabled = true
     }
     
-    func hideToolbars(){
-        topToolbar.isHidden = true
-        bottomToolbar.isHidden = true
+    func configureBars(_ isHidden: Bool){
+            topToolbar.isHidden = isHidden
+            bottomToolbar.isHidden = isHidden
+        
     }
     
-    func showToolbars(){
-        topToolbar.isHidden = false
-        bottomToolbar.isHidden = false
+    func initializeTextField(_ textField: UITextField, _ withText: String) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+        textField.borderStyle = UITextBorderStyle.none
+        textField.backgroundColor = UIColor.clear
+        textField.autocapitalizationType = .allCharacters
+        textField.text = withText
     }
-    
-    func setTextFields(_ textField: UITextField, _ action: String){
-        switch action {
-        case "setInitials":
-            switch textField.tag {
-            case 0:
-                textField.text = "TOP"
-            case 1:
-                textField.text = "BOTTOM"
-            default:
-                break
-            }
-        case "reset":
-            switch textField.tag {
-            case 0:
-                textField.text = ""
-            case 1:
-                textField.text = ""
-            default:
-                break
-            }
-       default:
-            break
-        }
-    }
-    
-   
-    
     
     
 }
