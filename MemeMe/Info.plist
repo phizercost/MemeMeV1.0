@@ -21,6 +21,8 @@
 	<string>Need to access your camera to capture a picture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo use</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo addition</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
