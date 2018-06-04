@@ -104,11 +104,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: Keyboard Functions
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        view.frame.origin.y += getKeyboardHeight(notification)
+        if bottomTextField.isFirstResponder {
+            view.frame.origin.y += getKeyboardHeight(notification)
+        }
     }
     
     // MARK: Functions
@@ -127,14 +131,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         initializeTextField(textField, "")
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0:
-            subscribeToKeyboardNotifications()
-        default:
-            break
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
